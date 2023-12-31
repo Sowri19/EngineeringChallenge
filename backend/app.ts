@@ -8,8 +8,9 @@ const port = 3001;
 app.use(express.json()); // Middleware for JSON request parsing
 
 app.post("/machine-health", async (req: Request, res: Response) => {
+  const uid = req.body.uid;
   const result = getMachineHealth(req);
-  const timestamp = new Date().toISOString(); // Get current timestamp
+  const timestamp = new Date().toISOString();
 
   if (result.error) {
     res.status(400).json(result);
@@ -17,17 +18,19 @@ app.post("/machine-health", async (req: Request, res: Response) => {
     const db = admin.firestore();
     const docRef = db.collection("machineHealthRecords").doc();
     try {
-      // Include the timestamp in the data being saved
-      await docRef.set({ ...result, timestamp });
+      // Include the UID and timestamp in the data being saved
+      await docRef.set({ ...result, uid, timestamp });
       console.log(
         "Machine health data written with ID: ",
         docRef.id,
+        ", UID: ",
+        uid,
         " at ",
         timestamp
       );
-      res.json({ ...result, timestamp });
+      res.json({ ...result, uid, timestamp });
     } catch (error) {
-      console.error("Error writing machine health data to Firebase:", error);
+      console.error("Unhandled error in /machine-health endpoint:", error);
       res.status(500).json({ error: "Internal Server Error" });
     }
   }

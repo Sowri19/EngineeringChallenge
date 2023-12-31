@@ -28,7 +28,6 @@ export default function TabLayout() {
 
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
-
   const handleLogin = async () => {
     try {
       const userCredential = await signInWithEmailAndPassword(
@@ -36,10 +35,9 @@ export default function TabLayout() {
         email,
         password
       );
-
       if (userCredential.user) {
         const user = userCredential.user;
-        dispatch(loginSuccess({ email: user.email }));
+        dispatch(loginSuccess({ uid: user.uid }));
       } else {
         console.error("Login failed");
       }

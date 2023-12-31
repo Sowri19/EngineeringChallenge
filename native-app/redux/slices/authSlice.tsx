@@ -1,20 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
+// Inside your authSlice.js
 
+const initialState = {
+  isLoggedIn: false,
+
+  uid: null, // Add a field for uid
+};
 const authSlice = createSlice({
   name: "auth",
-  initialState: {
-    isLoggedIn: false,
-    user: null,
-  },
+  initialState,
   reducers: {
     loginSuccess: (state, action) => {
       state.isLoggedIn = true;
-      state.user = action.payload;
+      state.uid = action.payload.uid;
     },
     logout: (state) => {
       state.isLoggedIn = false;
-      state.user = null;
+
+      state.uid = null; // Reset uid
     },
+    // ... other reducers
   },
 });
 

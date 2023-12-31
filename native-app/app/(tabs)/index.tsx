@@ -20,27 +20,24 @@ if (__DEV__) {
 export default function StateScreen() {
   const dispatch = useDispatch();
   const machineData = useSelector((state: RootState) => state.machineData.data);
-
+  const uid = useSelector((state: RootState) => state.auth.uid);
   const calculateHealth = useCallback(async () => {
     try {
-      const response = await axios.post(apiUrl, {
+      const requestBody = {
         machines: machineData?.machines,
-      });
+        uid: uid,
+      };
+
+      const response = await axios.post(apiUrl, requestBody);
 
       if (response.data?.factory) {
-        dispatch(setScores(response.data));
+        dispatch(setScores(response.data)); // Dispatch action to save response data
       }
     } catch (error) {
       console.error(error);
-      console.log(
-        `There was an error calculating health. ${
-          error.toString() === "AxiosError: Network Error"
-            ? "Is the api server started?"
-            : error
-        }`
-      );
+      console.log(`There was an error calculating health: ${error}`);
     }
-  }, [dispatch, machineData]);
+  }, [dispatch, machineData, uid]);
 
   return (
     <View style={styles.container}>

@@ -1,7 +1,7 @@
 // types/state.ts
 export interface AuthState {
   isLoggedIn: boolean;
-  user: { email: string } | null;
+  uid: string;
 }
 
 export interface MachineDataState {
