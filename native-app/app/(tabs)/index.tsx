@@ -8,6 +8,7 @@ import { MachineScore } from "../../components/MachineScore";
 import { resetData, setScores } from "../../redux/slices/machineDataSlice";
 import React, { useCallback } from "react";
 import { RootState } from "../../types/states";
+import LogoutButton from "../../components/Logout";
 
 let apiUrl = "https://fancy-dolphin-65b07b.netlify.app/api/machine-health";
 if (__DEV__) {
@@ -107,6 +108,7 @@ export default function StateScreen() {
           color="#FF0000"
         />
       </View>
+      <LogoutButton />
     </View>
   );
 }

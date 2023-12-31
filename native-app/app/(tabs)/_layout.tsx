@@ -5,11 +5,11 @@ import Colors from "../../constants/Colors";
 
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { loginSuccess, logout } from "../../redux/slices/authSlice";
-import { saveToken, deleteToken } from "../../utils/secureStoreUtils";
+import { loginSuccess } from "../../redux/slices/authSlice";
 import Login from "../../module/login/index";
 import { RootState } from "../../types/states";
-import { authenticateUser } from "../../utils/authentication";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../utils/authentication";
 /**
  * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
  */
@@ -29,21 +29,23 @@ export default function TabLayout() {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector((state: RootState) => state.auth.isLoggedIn);
 
-  // Dummy login check
   const handleLogin = async () => {
-    // Replace this with your actual login logic
-    const token = await authenticateUser(email, password); // Implement this
-    if (token) {
-      await saveToken(token);
-      dispatch(loginSuccess({ email }));
-    } else {
-      // Handle login failure
-    }
-  };
+    try {
+      const userCredential = await signInWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
 
-  const handleLogout = async () => {
-    await deleteToken();
-    dispatch(logout());
+      if (userCredential.user) {
+        const user = userCredential.user;
+        dispatch(loginSuccess({ email: user.email }));
+      } else {
+        console.error("Login failed");
+      }
+    } catch (error) {
+      console.error("Authentication error:", error);
+    }
   };
 
   return !isLoggedIn ? (
