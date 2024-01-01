@@ -4,6 +4,7 @@ const machineDataSlice = createSlice({
   name: "machineData",
   initialState: {
     data: undefined,
+    history: [],
   },
   reducers: {
     updateData: (state, action) => {
@@ -17,8 +18,20 @@ const machineDataSlice = createSlice({
         state.data.scores = action.payload;
       }
     },
+    updateHistory: (state, action) => {
+      state.history = action.payload;
+    },
+    addHistoryRecord: (state, action) => {
+      state.history.push(action.payload);
+    },
   },
 });
 
-export const { updateData, resetData, setScores } = machineDataSlice.actions;
+export const {
+  updateData,
+  resetData,
+  setScores,
+  updateHistory,
+  addHistoryRecord,
+} = machineDataSlice.actions;
 export default machineDataSlice.reducer;

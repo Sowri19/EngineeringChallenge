@@ -5,6 +5,7 @@ export interface AuthState {
 }
 
 export interface MachineDataState {
+  history: any;
   data: any; // Replace 'any' with the specific type of your machine data
 }
 

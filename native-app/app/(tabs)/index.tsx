@@ -21,10 +21,12 @@ export default function StateScreen() {
   const dispatch = useDispatch();
   const machineData = useSelector((state: RootState) => state.machineData.data);
   const uid = useSelector((state: RootState) => state.auth.uid);
+
   const calculateHealth = useCallback(async () => {
     try {
       const requestBody = {
         machines: machineData?.machines,
+        factory: machineData?.scores?.factory,
         uid: uid,
       };
 

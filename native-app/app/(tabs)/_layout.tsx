@@ -76,6 +76,15 @@ export default function TabLayout() {
           tabBarIcon: ({ color }) => <TabBarIcon name="edit" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="charts"
+        options={{
+          title: "Charts",
+          tabBarIcon: ({ color }) => (
+            <TabBarIcon name="bar-chart" color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
