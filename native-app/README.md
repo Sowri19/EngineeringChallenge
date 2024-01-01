@@ -52,3 +52,6 @@ You are free to choose how you'd like to test this repo, think about options and
 ## Customization
 
 If you would like, feel free to modify the app as needed.
+
+
+ I have used firebase client SDK for the authentication of the user. and the uid is stored inside the redux store. I have used redux for the state management of the app. The uid and the scores is sent through the api 

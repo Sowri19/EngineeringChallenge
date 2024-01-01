@@ -1,29 +1,24 @@
-import React, { useState } from "react";
-import { View, StyleSheet } from "react-native";
+import React from "react";
 import InputFields from "../../components/CustomInput";
 import BlueButton from "../../components/BlueButton";
+import { Container, Heading, LoginContainer, LoginText } from "./styles";
 
 const Login = ({ onPress, setEmail, setPassword, password, email }) => {
   return (
-    <View style={styles.container}>
+    <Container>
+      <Heading>Login to BellSant</Heading>
       <InputFields
         setEmail={setEmail}
         email={email}
         password={password}
         setPassword={setPassword}
       />
-      <BlueButton title="Submit" onPress={() => onPress()} />
-    </View>
+      <BlueButton title="Login" onPress={() => onPress()} />
+      <LoginContainer>
+        <LoginText>Don't have an account? Register here.</LoginText>
+      </LoginContainer>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    padding: 20,
-    backgroundColor: "#F5F5F5",
-  },
-});
 
 export default Login;

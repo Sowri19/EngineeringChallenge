@@ -10,9 +10,7 @@ import Login from "../../module/login/index";
 import { RootState } from "../../types/states";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/authentication";
-/**
- * You can explore the built-in icon families and icons on the web at https://icons.expo.fyi/
- */
+
 function TabBarIcon(props: {
   name: React.ComponentProps<typeof FontAwesome>["name"];
   color: string;
@@ -50,9 +48,9 @@ export default function TabLayout() {
     <Login
       onPress={handleLogin}
       setEmail={setEmail}
-      password={password}
-      email={email}
       setPassword={setPassword}
+      email={email}
+      password={password}
     />
   ) : (
     <Tabs

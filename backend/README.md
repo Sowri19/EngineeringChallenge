@@ -75,3 +75,5 @@ You can add and run tests to ensure the correctness of the API. Follow these ste
 ## Customization
 
 You can customize machine data and health evaluation logic by modifying the `machineData.json` file and the calculation functions in `app.ts`.
+
+I have used firebase Admin SDK and used to store the scores to the firestore database as a persistant database. add I have added the uid and timestamp to the database to identify the user and the time of the score.
