@@ -1,10 +1,11 @@
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions, Text, View } from "react-native";
+import styled from "styled-components/native";
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp);
-  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`; // 'MM/DD/YYYY' format
+  return `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`;
 };
 
 const processData = (data) => {
@@ -25,21 +26,20 @@ const processData = (data) => {
   return machineData;
 };
 
-const chartConfig = {
-  backgroundGradientFrom: "#fff",
-  backgroundGradientTo: "#fff",
-  decimalPlaces: 2,
-  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
-  style: {
-    borderRadius: 16,
-  },
-  propsForDots: {
-    r: "6",
-    strokeWidth: "2",
-    stroke: "#ffa726",
-  },
-};
+const ChartContainer = styled.View`
+  margin-bottom: 20px;
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+`;
+
+const ChartTitle = styled.Text`
+  font-size: 18px;
+  font-weight: bold;
+  color: #333333;
+  margin-bottom: 10px;
+`;
 
 const ChartComponent = ({ data }) => {
   if (!Array.isArray(data) || data.length === 0) {
@@ -56,15 +56,29 @@ const ChartComponent = ({ data }) => {
     };
 
     return (
-      <View key={machineName} style={{ marginBottom: 20 }}>
-        <Text>{machineName} Scores</Text>
+      <ChartContainer key={machineName}>
+        <ChartTitle>{machineName} Scores</ChartTitle>
         <LineChart
           data={lineChartData}
           width={screenWidth}
           height={220}
-          chartConfig={chartConfig}
+          chartConfig={{
+            backgroundGradientFrom: "#fff",
+            backgroundGradientTo: "#fff",
+            decimalPlaces: 2,
+            color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+            style: {
+              borderRadius: 16,
+            },
+            propsForDots: {
+              r: "6",
+              strokeWidth: "2",
+              stroke: "#ffa726",
+            },
+          }}
         />
-      </View>
+      </ChartContainer>
     );
   };
 
@@ -75,8 +89,8 @@ const ChartComponent = ({ data }) => {
       )}
       {/* Create a chart for Factory Scores */}
       {data[0]?.factory && (
-        <View style={{ marginBottom: 20 }}>
-          <Text>Factory Scores</Text>
+        <ChartContainer>
+          <ChartTitle>Factory Scores</ChartTitle>
           <LineChart
             data={{
               labels: data.map((item) => formatDate(item.timestamp)),
@@ -86,9 +100,23 @@ const ChartComponent = ({ data }) => {
             }}
             width={screenWidth}
             height={220}
-            chartConfig={chartConfig}
+            chartConfig={{
+              backgroundGradientFrom: "#fff",
+              backgroundGradientTo: "#fff",
+              decimalPlaces: 2,
+              color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              labelColor: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              style: {
+                borderRadius: 16,
+              },
+              propsForDots: {
+                r: "6",
+                strokeWidth: "2",
+                stroke: "#ffa726",
+              },
+            }}
           />
-        </View>
+        </ChartContainer>
       )}
     </View>
   );

@@ -66,6 +66,27 @@ app.get("/machine-health/:uid", async (req: Request, res: Response) => {
   }
 });
 
+// Add a new route to handle DELETE requests for deleting data
+app.delete("/machine-health/delete-data/:uid", async (req, res) => {
+  const uid = req.params.uid;
+
+  try {
+    // Delete data in Firebase Firestore
+    const db = admin.firestore();
+    const userDocRef = db.collection("machineHealthRecords").doc(uid);
+
+    // Delete the document with the specified UID
+    await userDocRef.delete();
+    console.log("Data deleted in Firebase for UID:", uid);
+
+    // Send a success response
+    res.status(200).json({ message: "Data deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting data in Firebase:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(port, () => {
   console.log(`Server is listening at http://localhost:${port}`);
 });

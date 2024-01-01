@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Button } from "react-native";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { updateHistory } from "../../redux/slices/machineDataSlice";
 import ChartComponent from "../../components/ChartComponent/index";
 import { RootState } from "../../types/states";
+import { ButtonStyled, Container, LoadingText } from "./styles";
 
 const MachineHealthComponent = () => {
   const dispatch = useDispatch();
@@ -39,19 +39,18 @@ const MachineHealthComponent = () => {
   }, [uid]);
 
   return (
-    <View>
-      <Button
+    <Container>
+      <ButtonStyled
         onPress={fetchMachineHealthData}
         title="Refresh Data"
-        color="#841584"
         disabled={isLoading}
       />
       {isLoading ? (
-        <Text>Loading...</Text>
+        <LoadingText>Loading...</LoadingText>
       ) : (
         <ChartComponent data={machineHealthHistory} />
       )}
-    </View>
+    </Container>
   );
 };
 

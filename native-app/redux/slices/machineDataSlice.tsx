@@ -12,6 +12,7 @@ const machineDataSlice = createSlice({
     },
     resetData: (state) => {
       state.data = undefined;
+      state.history = [];
     },
     setScores: (state, action) => {
       if (state.data) {

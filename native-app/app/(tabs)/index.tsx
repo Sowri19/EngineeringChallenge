@@ -1,13 +1,21 @@
-import { Button, Platform, StyleSheet } from "react-native";
-import { Text, View } from "../../components/Themed";
-import { Link } from "expo-router";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { PartsOfMachine } from "../../components/PartsOfMachine";
-import { MachineScore } from "../../components/MachineScore";
-import { resetData, setScores } from "../../redux/slices/machineDataSlice";
 import React, { useCallback } from "react";
+import { Platform } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
 import { RootState } from "../../types/states";
+import { resetData, setScores } from "../../redux/slices/machineDataSlice";
+import {
+  Container,
+  BoxContainer,
+  Title,
+  SubTitle,
+  TextStyled,
+  ButtonContainer,
+  ButtonText,
+  ResetButtonContainer,
+} from "./styles";
+import { PartsOfMachine } from "../../components/PartsOfMachines/PartsOfMachine";
+import { MachineScore } from "../../components/MachineScore";
 import LogoutButton from "../../components/Logout";
 
 let apiUrl = "https://fancy-dolphin-65b07b.netlify.app/api/machine-health";
@@ -29,116 +37,72 @@ export default function StateScreen() {
         factory: machineData?.scores?.factory,
         uid: uid,
       };
-
       const response = await axios.post(apiUrl, requestBody);
-
       if (response.data?.factory) {
-        dispatch(setScores(response.data)); // Dispatch action to save response data
+        dispatch(setScores(response.data));
       }
     } catch (error) {
       console.error(error);
-      console.log(`There was an error calculating health: ${error}`);
     }
   }, [dispatch, machineData, uid]);
 
+  // Function to handle resetting data
+  const handleResetData = async () => {
+    try {
+      // Make an HTTP DELETE request to the API endpoint to delete data
+      await axios.delete(`${apiUrl}/delete-data/${uid}`);
+
+      // Dispatch the reset action to clear data in Redux
+      dispatch(resetData());
+    } catch (error) {
+      console.error("Error resetting data:", error);
+    }
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.separator} />
-      {!machineData && (
-        <Link href="/two" style={styles.link}>
-          <Text style={styles.linkText}>
-            Please log a part to check machine health
-          </Text>
-        </Link>
+    <Container>
+      <BoxContainer>
+        <Title>Factory Health Score</Title>
+        <TextStyled>
+          {machineData?.scores?.factory
+            ? `Score: ${machineData.scores.factory}`
+            : "Not yet calculated"}
+        </TextStyled>
+      </BoxContainer>
+
+      {/* Display Machine Scores */}
+      {machineData?.scores?.machineScores && (
+        <BoxContainer>
+          <SubTitle>Machine Health Scores</SubTitle>
+          {Object.keys(machineData.scores.machineScores).map((key, index) => (
+            <MachineScore
+              key={index}
+              machineName={key}
+              score={machineData.scores.machineScores[key]}
+            />
+          ))}
+        </BoxContainer>
       )}
-      {machineData && (
-        <>
-          <PartsOfMachine
-            machineName={"Welding Robot"}
-            parts={machineData?.machines?.weldingRobot}
-          />
-          <PartsOfMachine
-            machineName={"Assembly Line"}
-            parts={machineData?.machines?.assemblyLine}
-          />
-          <PartsOfMachine
-            machineName={"Painting Station"}
-            parts={machineData?.machines?.paintingStation}
-          />
-          <PartsOfMachine
-            machineName={"Quality Control Station"}
-            parts={machineData?.machines?.qualityControlStation}
-          />
-          <View
-            style={styles.separator}
-            lightColor="#eee"
-            darkColor="rgba(255,255,255,0.1)"
-          />
-          <Text style={styles.title}>Factory Health Score</Text>
-          <Text style={styles.text}>
-            {machineData?.scores?.factory
-              ? machineData?.scores?.factory
-              : "Not yet calculated"}
-          </Text>
-          {machineData?.scores?.machineScores && (
-            <>
-              <Text style={styles.title2}>Machine Health Scores</Text>
-              {Object.keys(machineData?.scores?.machineScores).map((key) => (
-                <MachineScore
-                  key={key}
-                  machineName={key}
-                  score={machineData?.scores?.machineScores[key]}
-                />
-              ))}
-            </>
-          )}
-        </>
-      )}
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <Button title="Calculate Health" onPress={calculateHealth} />
-      <View style={styles.resetButton}>
-        <Button
-          title="Reset Machine Data"
-          onPress={() => dispatch(resetData())}
-          color="#FF0000"
-        />
-      </View>
+
+      {/* Display Parts of Machine */}
+      {machineData?.machines &&
+        Object.keys(machineData.machines).map((machineName) => (
+          <BoxContainer key={machineName}>
+            <PartsOfMachine
+              machineName={machineName}
+              parts={machineData.machines[machineName]}
+            />
+          </BoxContainer>
+        ))}
+
+      <ButtonContainer onPress={calculateHealth}>
+        <ButtonText>Calculate Health</ButtonText>
+      </ButtonContainer>
+      <ResetButtonContainer onPress={handleResetData}>
+        <ButtonText>Reset Machine Data</ButtonText>
+      </ResetButtonContainer>
+
       <LogoutButton />
-    </View>
+    </Container>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  title2: {
-    fontSize: 17,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 20,
-    height: 1,
-    width: "80%",
-  },
-  text: {},
-  link: {
-    paddingBottom: 15,
-  },
-  linkText: {
-    fontSize: 14,
-    color: "#2e78b7",
-  },
-  resetButton: {
-    marginTop: 10,
-  },
-});
