@@ -127,3 +127,5 @@ For specific details on running the API and React Native app, refer to their res
 
 **Note:**
 This project is designed to take approximately 3 hours, but there is no strict time limit. We are interested in seeing how far you can get and the quality of your final deliverable. Focus on completing the core requirements before attempting the stretch goals. Feel free to make reasonable assumptions if certain details are not explicitly provided. If you encounter challenges, document them and describe how you would address them with more time.
+
+Assessment Pictures:

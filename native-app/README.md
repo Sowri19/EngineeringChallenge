@@ -53,5 +53,33 @@ You are free to choose how you'd like to test this repo, think about options and
 
 If you would like, feel free to modify the app as needed.
 
+Assessment Solution:
 
- I have used firebase client SDK for the authentication of the user. and the uid is stored inside the redux store. I have used redux for the state management of the app. The uid and the scores is sent through the api 
+# Clone the repo
+
+Clone the repo from the Link: https://github.com/Sowri19/EngineeringChallenge
+
+# How to run:
+
+After cloning the repo, run the following commands in the terminal
+
+1. cd native-app
+2. yarn install
+3. yarn start
+4. you can run the app in the expo go app, in the emulator or web browser by pressing the respective keys in the terminal.
+
+# Packages used:
+
+1. react-native
+2. react-redux
+3. firebase client sdk
+4. styled-components
+5. react-native-chart-kit
+
+I have used firebase client SDK for the authentication of the user. and the uid is stored inside the redux store. I have used redux for the state management of the app. The uid and the scores is sent through the api. also the history of the scores is stored in the redux store and retrived to show the history of the scores in the charts.
+
+I have used created new tab screen for chart and history. I have used styled components for styling the app.
+
+I have created components -> modules-> App structure for the app.
+
+The firebase configuration is stored in the authentication.ts file in the modules folder. all the keys are public and no need to hide the keys.

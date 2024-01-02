@@ -76,4 +76,31 @@ You can add and run tests to ensure the correctness of the API. Follow these ste
 
 You can customize machine data and health evaluation logic by modifying the `machineData.json` file and the calculation functions in `app.ts`.
 
+Assessment Solution:
+
+# Clone the repo
+
+Clone the repo from the Link: https://github.com/Sowri19/EngineeringChallenge
+
+# How to run:
+
+After cloning the repo, run the following commands in the terminal
+
+1. cd backend
+2. yarn install
+3. yarn start
+4. The server will be running on port 3001
+
+# Packages used:
+
+1. express
+2. cors
+3. firebase-admin sdk
+
 I have used firebase Admin SDK and used to store the scores to the firestore database as a persistant database. add I have added the uid and timestamp to the database to identify the user and the time of the score.
+
+Post method: The front end will call the api with the uid and the score and the api will store the score to the database.
+Get method: The front end will call the api with the uid and the api will return the scores of the user.
+delete method: The front end will call the api with the uid and the api will delete the scores of the user.
+
+After following steps now go the frontend folder and run the commands in the README.md file of the frontend folder.

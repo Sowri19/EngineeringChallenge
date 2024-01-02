@@ -30,7 +30,6 @@ app.post("/machine-health", async (req: Request, res: Response) => {
       },
       { merge: true }
     );
-    console.log("Machine health data written for UID:", uid);
     res.json({ ...result, uid, timestamp });
   } catch (error) {
     console.error("Unhandled error in /machine-health endpoint:", error);
@@ -77,7 +76,6 @@ app.delete("/machine-health/delete-data/:uid", async (req, res) => {
 
     // Delete the document with the specified UID
     await userDocRef.delete();
-    console.log("Data deleted in Firebase for UID:", uid);
 
     // Send a success response
     res.status(200).json({ message: "Data deleted successfully" });
