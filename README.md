@@ -129,3 +129,10 @@ For specific details on running the API and React Native app, refer to their res
 This project is designed to take approximately 3 hours, but there is no strict time limit. We are interested in seeing how far you can get and the quality of your final deliverable. Focus on completing the core requirements before attempting the stretch goals. Feel free to make reasonable assumptions if certain details are not explicitly provided. If you encounter challenges, document them and describe how you would address them with more time.
 
 Assessment Pictures:
+
+![Simulator Screenshot - iPhone 15 Pro - 2024-01-01 at 22 08 53](https://github.com/Sowri19/EngineeringChallenge/assets/98078922/1c767dda-0be0-48e5-8f50-204fc34a2049)
+![Simulator Screenshot - iPhone 15 Pro - 2024-01-01 at 22 12 20](https://github.com/Sowri19/EngineeringChallenge/assets/98078922/329d8013-dd55-4403-a325-49a097fb6967)
+![Simulator Screenshot - iPhone 15 Pro - 2024-01-01 at 22 12 26](https://github.com/Sowri19/EngineeringChallenge/assets/98078922/8255af5d-ecdf-458b-b68b-67ec6f78ea07)
+![Simulator Screenshot - iPhone 15 Pro - 2024-01-01 at 22 12 38](https://github.com/Sowri19/EngineeringChallenge/assets/98078922/47a1b01a-2974-4fc1-8478-7d899631e14c)
+![Simulator Screenshot - iPhone 15 Pro - 2024-01-01 at 22 13 03](https://github.com/Sowri19/EngineeringChallenge/assets/98078922/8edfd836-1075-4f2c-bf9f-8feb226b372d)
+![Simulator Screenshot - iPhone 15 Pro - 2024-01-01 at 22 13 05](https://github.com/Sowri19/EngineeringChallenge/assets/98078922/90a2aafa-3fac-4180-8771-7e338704bc4a)
