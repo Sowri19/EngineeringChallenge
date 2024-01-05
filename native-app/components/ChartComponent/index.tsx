@@ -1,7 +1,7 @@
 import React from "react";
 import { LineChart } from "react-native-chart-kit";
 import { Dimensions, Text, View } from "react-native";
-import styled from "styled-components/native";
+import { ChartContainer, ChartTitle } from "./styles";
 
 const formatDate = (timestamp) => {
   const date = new Date(timestamp);
@@ -25,21 +25,6 @@ const processData = (data) => {
 
   return machineData;
 };
-
-const ChartContainer = styled.View`
-  margin-bottom: 20px;
-  background-color: #ffffff;
-  border-radius: 12px;
-  padding: 16px;
-  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-`;
-
-const ChartTitle = styled.Text`
-  font-size: 18px;
-  font-weight: bold;
-  color: #333333;
-  margin-bottom: 10px;
-`;
 
 const ChartComponent = ({ data }) => {
   if (!Array.isArray(data) || data.length === 0) {

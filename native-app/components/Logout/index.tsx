@@ -1,5 +1,3 @@
-// LogoutButton.js
-
 import React from "react";
 import { TouchableOpacity, Text } from "react-native";
 import { styles } from "./styles";
@@ -7,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { logout } from "../../redux/slices/authSlice";
 import { signOut } from "firebase/auth";
 import { auth } from "../../utils/authentication";
+
 const LogoutButton = () => {
   const dispatch = useDispatch();
 

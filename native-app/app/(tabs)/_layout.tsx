@@ -6,7 +6,7 @@ import Colors from "../../constants/Colors";
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { loginSuccess } from "../../redux/slices/authSlice";
-import Login from "../../module/login/index";
+import Login from "../../pages/login/index";
 import { RootState } from "../../types/states";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../../utils/authentication";

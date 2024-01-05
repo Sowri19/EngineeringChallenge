@@ -15,7 +15,7 @@ import {
   ResetButtonContainer,
 } from "./styles";
 import { PartsOfMachine } from "../../components/PartsOfMachines/PartsOfMachine";
-import { MachineScore } from "../../components/MachineScore";
+import { MachineScore } from "../../components/MachineScore/index";
 import LogoutButton from "../../components/Logout";
 
 let apiUrl = "https://fancy-dolphin-65b07b.netlify.app/api/machine-health";
@@ -25,7 +25,7 @@ if (__DEV__) {
   }:3001/machine-health`;
 }
 
-export default function StateScreen() {
+const StateScreen = () => {
   const dispatch = useDispatch();
   const machineData = useSelector((state: RootState) => state.machineData.data);
   const uid = useSelector((state: RootState) => state.auth.uid);
@@ -105,4 +105,6 @@ export default function StateScreen() {
       <LogoutButton />
     </Container>
   );
-}
+};
+
+export default StateScreen;

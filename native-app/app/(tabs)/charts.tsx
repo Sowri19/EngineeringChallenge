@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, ScrollView } from "react-native";
-import MachineHealthCharts from "../../module/MachineHealth";
+import MachineHealthCharts from "../../pages/MachineHealth";
 import { View } from "../../components/Themed";
 
 export default function TabChartsScreen() {
