@@ -1,41 +1,54 @@
 import express, { Request, Response } from "express";
 import admin from "./firebaseConfig";
 import { getMachineHealth } from "./machineHealth";
+import { expressjwt } from "express-jwt";
 
 const app = express();
 const port = 3001;
 
 app.use(express.json());
 
-app.post("/machine-health", async (req: Request, res: Response) => {
-  const uid = req.body.uid;
-  const result = getMachineHealth(req);
-  const timestamp = new Date().toISOString();
+const JWT_SECRET = process.env.JWT_SECRET!;
 
-  if (result.error) {
-    res.status(400).json(result);
-    return;
-  }
-
-  const db = admin.firestore();
-  const userDocRef = db.collection("machineHealthRecords").doc(uid);
-
-  try {
-    await userDocRef.set(
-      {
-        records: admin.firestore.FieldValue.arrayUnion({
-          ...result,
-          timestamp,
-        }),
-      },
-      { merge: true }
-    );
-    res.json({ ...result, uid, timestamp });
-  } catch (error) {
-    console.error("Unhandled error in /machine-health endpoint:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+const authenticateToken = expressjwt({
+  secret: JWT_SECRET,
+  algorithms: ["HS256"],
+  requestProperty: "auth",
 });
+
+app.post(
+  "/machine-health",
+  authenticateToken,
+  async (req: Request, res: Response) => {
+    const uid = req.body.uid;
+    const result = getMachineHealth(req);
+    const timestamp = new Date().toISOString();
+
+    if (result.error) {
+      res.status(400).json(result);
+      return;
+    }
+
+    const db = admin.firestore();
+    const userDocRef = db.collection("machineHealthRecords").doc(uid);
+
+    try {
+      await userDocRef.set(
+        {
+          records: admin.firestore.FieldValue.arrayUnion({
+            ...result,
+            timestamp,
+          }),
+        },
+        { merge: true }
+      );
+      res.json({ ...result, uid, timestamp });
+    } catch (error) {
+      console.error("Unhandled error in /machine-health endpoint:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
+  }
+);
 
 app.get("/machine-health/:uid", async (req: Request, res: Response) => {
   const uid = req.params.uid;
